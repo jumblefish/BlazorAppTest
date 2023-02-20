@@ -1,0 +1,33 @@
+﻿@using BlazorApp1.Data
+@page "/todo"
+
+<h3>Todo</h3>
+
+<ul>
+    @foreach (var todo in todos)
+    {
+        <li>@todo.Title</li>
+    }
+</ul>
+@* must bind input to property in code block*@
+<input placeholder="Something todo" @bind="newTodo" />
+@* what is btn-primary*@
+<button class="btn btn-primary" @onclick="AddTodo">add</button>
+
+@* TodoItem.cs has to be in blazorapp1 root or else TodoItem needs using above*@
+@code 
+{
+    private static List<TodoItem> todos = new();
+    private string? newTodo;
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+           //var declarations do not use access modifiers in method blocks
+            TodoItem newTodoItem = new TodoItem { Title = newTodo };
+            todos.Add(newTodoItem);
+           // todos.Add(new TodoItem { Title = newTodo});
+            newTodo = string.Empty;
+        }
+    }
+}
