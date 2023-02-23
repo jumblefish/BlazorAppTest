@@ -1,19 +1,25 @@
 ﻿@using BlazorApp1.Data
 @page "/todo"
 
-<h3>Todo</h3>
+@* Each Razor component file is compiled into a .NET class when the project is built.*@
+@* can add inline code chunks*@
+<h3>Todo (@todos.Count(todo => !todo.IsDone))</h3>
 
 <ul>
     @foreach (var todo in todos)
     {
-        <li>@todo.Title</li>
+        <li>
+            <input type="checkbox" @bind="todo.IsDone" />
+            <input @bind="todo.Title" />
+        </li>
     }
 </ul>
 @* must bind input to property in code block*@
 <input placeholder="Something todo" @bind="newTodo" />
 @* what is btn-primary*@
 <button class="btn btn-primary" @onclick="AddTodo">add</button>
-
+<p>@DateTime.Now</p>
+<p>@(DateTime.Now)</p>
 @* TodoItem.cs has to be in blazorapp1 root or else TodoItem needs using above*@
 @code 
 {
