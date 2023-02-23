@@ -23,7 +23,7 @@
 <InputDate @bind-Value=newReleaseDate ParsingErrorMessage="Must be a date" />
 <input placeholder="Genre" @bind="newGenre" />
 <InputNumber placeholder="Price" @bind-Value=newPrice ParsingErrorMessage="Must be a number" />
-<button class="btn btn-primary" @onclick="AddMovie">Add Movie</button>
+<button class="btn btn-secondary" @onclick="AddMovie">Add Movie</button>
 
 @if (movies == null)
 {
@@ -116,8 +116,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        // Get the current user
-        /*
+            // Get the current user
+            /*
             if (authenticationStateTask != null)
             {
             var user = (await authenticationStateTask).User;
@@ -133,7 +133,7 @@ else
     }
 
 
-    private void AddMovie()
+    async Task AddMovie()
     {
         if (!string.IsNullOrWhiteSpace(newTitle))
         {
@@ -145,33 +145,24 @@ else
             //todos.Add(newTodoItem);
             // todos.Add(new TodoItem { Title = newTodo});
             //newTodo = string.Empty;
+            var result = MService.CreateMovieAsync(MovieItem);
+            
         }
+        movies = await MService.GetMovieAsync();
     }
     void ClosePopup()
-
     {
-
         // Close the Popup
-
         ShowPopup = false;
-
     }
     void AddNewMovie()
-
     {
-
         // Make new forecast
-
         newMovieItem = new Movie();
-
         // Set Id to 0 so we know it is a new record
-
         newMovieItem.Id = 0;
-
         // Open the Popup
-
         ShowPopup = true;
-
     }
     async Task SaveMovie()
     {
