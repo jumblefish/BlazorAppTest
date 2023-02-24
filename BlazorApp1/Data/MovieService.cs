@@ -49,6 +49,57 @@ namespace BlazorApp1.Data
             _context.SaveChanges();
             return Task.FromResult(movie);
         }
+        public Task<bool>UpdateMovieAsync(Movie objMovie)
+        {
+            var ExistingMovie =
+                _context.Movie
+                .Where(x => x.Id == objMovie.Id)
+                .FirstOrDefault();
+
+            if (ExistingMovie != null)
+            {
+                ExistingMovie.ReleaseDate =
+                    objMovie.ReleaseDate;
+                ExistingMovie.Price =
+                    objMovie.Price;
+                ExistingMovie.Title =
+                    objMovie.Title;
+                ExistingMovie.Genre =
+                    objMovie.Genre;
+                _context.SaveChanges();
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
+            return Task.FromResult(true);
+        }
+        public Task<bool>
+
+        DeleteMovieAsync(Movie objMovie)
+        {
+            //can replace this with _context.Movie.Remove(objMovie)?
+            /*
+            var ExistingMovie =
+                _context.Movie
+                .Where(x => x.Id == objMovie.Id)
+                .FirstOrDefault();
+            
+            if (ExistingMovie != null)
+            {
+                _context.Movie.Remove(ExistingMovie);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
+            return Task.FromResult(true);
+            */
+            _context.Movie.Remove(objMovie);
+            _context.SaveChanges();
+            return Task.FromResult(true);
+        }
     }
 
 }

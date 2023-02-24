@@ -3,6 +3,7 @@
 
 namespace BlazorApp1.Models
 {
+    //Why did I put this in models instead of data
     public class Movie
     {
         public int Id { get; set; }
